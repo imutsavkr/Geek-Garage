@@ -1,4 +1,5 @@
 const app = require("./app");
+const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
 
@@ -10,11 +11,10 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 // config
-if (process.env.NODE_ENV !== "PRODUCTION") {
-  require("dotenv").config({ path: "backend/config/config.env" });
-}
 
-const port = 4000;
+dotenv.config({ path: "backend/config/config.env" });
+
+
 connectDatabase();
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -22,8 +22,11 @@ cloudinary.config({
   api_secret:process.env.CLOUDINARY_API_SECRET
 })
 
-const server = app.listen(port, () => {
-  console.log(`listening on port : ${port}`);
+// const server = app.listen(port, () => {
+//   console.log(`listening on port : ${port}`);
+// });
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
 // Unhandled promise rejection
