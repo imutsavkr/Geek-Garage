@@ -15,7 +15,7 @@
   animation: mailBtnAnimation 2s forwards;
 }
 .contactContainer > span {
-  font-size: 1em;
+  font-size: 5em;
 }
 
 .mailBtn > button {
